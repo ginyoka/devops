@@ -1,0 +1,35 @@
+---
+- name: Install PostgreSQL 12, Nginx, and Java 8 on AlmaLinux
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install PostgreSQL 12
+      dnf:
+        name: postgresql12-server
+        state: present
+
+    - name: Initialize PostgreSQL database
+      command: postgresql-setup --initdb
+
+    - name: Start and enable PostgreSQL service
+      service:
+        name: postgresql-12
+        state: started
+        enabled: yes
+
+    - name: Install Nginx
+      dnf:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Install Java 8
+      dnf:
+        name: java-1.8.0-openjdk
+        state: present
