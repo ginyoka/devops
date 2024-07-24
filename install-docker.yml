@@ -1,5 +1,5 @@
 ---
-- name: Install Docker on AlmaLinux
+- name: Install Docker
   hosts: master, worker
   become: true  # Run tasks with sudo
 
