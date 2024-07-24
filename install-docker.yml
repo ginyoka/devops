@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: master, worker
+  hosts: local
   become: true  # Run tasks with sudo
 
   tasks:
