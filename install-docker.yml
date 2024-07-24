@@ -1,0 +1,47 @@
+---
+- name: Install Docker on AlmaLinux
+  hosts: master, worker
+  become: true  # Run tasks with sudo
+
+  tasks:
+    - name: Install yum-utils
+      package:
+        name: yum-utils
+        state: present
+
+    - name: Add Docker repository
+      command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+      
+    - name: Install required dependencies
+      package:
+        name:
+          - dnf-plugins-core
+          - device-mapper-persistent-data
+          - lvm2
+        state: present
+
+    - name: Install Docker
+      package:
+        name: docker-ce
+        state: present
+
+    - name: Install Docker-ce-cli
+      package:
+        name: docker-ce-cli
+        state: present
+
+    - name: Install Containerd.io
+      package:
+        name: containerd.io
+        state: present
+
+    - name: Install Docker-compose-plugin
+      package:
+        name: docker-compose-plugin
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
